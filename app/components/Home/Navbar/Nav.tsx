@@ -6,30 +6,27 @@ import { FaCode } from "react-icons/fa";
 import { BiDownload } from "react-icons/bi";
 import { HiBars3BottomRight } from "react-icons/hi2";
 
-const Nav = () => {
+type Props = {
+  openNav: () => void;
+};
+const Nav = ({ openNav }: Props) => {
   const [navBg, setNavBg] = useState(false);
-
   useEffect(() => {
     const handler = () => {
-      console.log("scrollY is:", window.scrollY); // 🔍 سطر تشخيصي مؤقت - هنشيله بعدين
-      if (window.scrollY >= 90) {
-        setNavBg(true);
-      } else {
-        setNavBg(false);
-      }
+      if (window.scrollY >= 90) setNavBg(true);
+      if (window.scrollY < 90) setNavBg(false);
     };
 
     window.addEventListener("scroll", handler);
-    console.log("Scroll listener attached ✅"); // 🔍 سطر تشخيصي مؤقت - هنشيله بعدين
 
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
   return (
     <div
-      className={`fixed w-full h-[12vh] z-[10000] transition-all duration-200 ${
-        navBg ? "bg-[#0f142ed9] shadow-md" : "bg-transparent"
-      }`}
+      className={`transition-all ${
+        navBg ? "bg-[#0f142ed9] : shadow-md " : "fixed"
+      } duration-200 h-[12vh] z-[10000] fixed w-full`}
     >
       <div className="flex items-center h-full justify-between w-[90%] mx-auto">
         {/* LOGO */}
@@ -69,7 +66,10 @@ const Nav = () => {
           </button>
 
           {/* Burger Menu */}
-          <HiBars3BottomRight className="w-8 h-8 cursor-pointer text-white lg:hidden" />
+          <HiBars3BottomRight
+            onClick={openNav}
+            className="w-8 h-8 cursor-pointer text-white lg:hidden"
+          />
         </div>
       </div>
     </div>
