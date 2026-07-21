@@ -6,6 +6,7 @@ import { FaCode } from "react-icons/fa";
 import { BiDownload } from "react-icons/bi";
 import { HiBars3BottomRight } from "react-icons/hi2";
 
+
 type Props = {
   openNav: () => void;
 };
